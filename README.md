@@ -114,3 +114,68 @@ auditctl -l | grep -E 'passwd_watch|shadow_watch|sshd_config_watch|sudoers_watch
 ```
 
 ---
+
+## 🛠️ Setup Instructions
+
+### 1. Install Required Packages
+
+```bash
+# Debian/Ubuntu:
+sudo apt install inotify-tools mailutils -y
+
+# RHEL/CentOS:
+sudo yum install inotify-tools mailx -y
+```
+
+### 2. Setup Log Files
+
+```bash
+sudo touch /var/log/inotify_access.log
+sudo chmod 640 /var/log/inotify_access.log
+sudo chown root:adm /var/log/inotify_access.log
+
+sudo touch /var/log/audit_email_alert.log
+sudo chmod 640 /var/log/audit_email_alert.log
+sudo chown root:adm /var/log/audit_email_alert.log
+```
+
+### 3. Deploy Scripts
+
+```bash
+sudo cp scripts/inotify-monitor.sh /usr/local/bin/inotify-monitor.sh
+sudo cp scripts/audit-monitor.sh /usr/local/bin/audit-monitor.sh
+sudo chmod +x /usr/local/bin/*.sh
+```
+
+### 4. Create Systemd Services
+
+```bash
+sudo cp systemd/audit-monitor.service /etc/systemd/system/
+sudo cp systemd/audit-monitor.timer /etc/systemd/system/
+sudo cp systemd/inotify-monitor.service /etc/systemd/system/
+```
+
+### 5. Enable Services
+
+```bash
+sudo systemctl daemon-reexec && sudo systemctl daemon-reload
+sudo systemctl enable --now inotify-monitor.service
+sudo systemctl enable --now audit-monitor.timer
+```
+
+To disable old setups:
+
+```bash
+sudo systemctl disable --now passwd-watch.service
+sudo rm /etc/systemd/system/passwd-watch.service
+sudo rm /usr/local/bin/monitor-passwd-read.sh
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+cat /etc/passwd
+sudo -u nobody cat /etc/shadow
+ausearch -k shadow_watch -ts recent
