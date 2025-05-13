@@ -1,0 +1,6 @@
+[Unit]
+Description=Monitor sensitive file access using auditd
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/audit-monitor.sh
