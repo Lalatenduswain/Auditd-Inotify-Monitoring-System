@@ -184,7 +184,6 @@ ausearch -k shadow_watch -ts recent
 |---------|
 | `sudo truncate -s 0 /var/log/mail.log && sudo postsuper -d ALL && sudo tail -f /var/log/mail.log` |
 
+## 📘 View Additional Docs
 
-## 📑 Additional Documentation
-
-- [Monitoring & Systemd Commands](./MONITORING.md)
+👉 [View Full Monitoring & Systemd Command Reference](docs/MONITORING.md)
