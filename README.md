@@ -180,7 +180,7 @@ cat /etc/passwd
 sudo -u nobody cat /etc/shadow
 ausearch -k shadow_watch -ts recent
 
-## 🔧 Systemd and Monitoring Scripts Command Reference
+# 🔧 Systemd and Monitoring Scripts Command Reference
 
 ### 🌀 Daemon Reload Commands
 
