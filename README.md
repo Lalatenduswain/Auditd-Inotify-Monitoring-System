@@ -187,3 +187,7 @@ ausearch -k shadow_watch -ts recent
 ## 📘 View Additional Docs
 
 👉 [View Full Monitoring & Systemd Command Reference](docs/MONITORING.md)
+
+## Project Information
+
+* [MONITORING](MONITORING.md)
